@@ -20,7 +20,6 @@ connection.connect((err) => {
     return;
   }
   connection.query('CREATE DATABASE IF NOT EXISTS twilioLog', (err) => {
-
     if (err) {
       console.error(`error creating database: ${err.stack}`);
       return;
@@ -28,32 +27,6 @@ connection.connect((err) => {
     let sql = 'USE twilioLog;';
     connection.query(sql, (err) => {
       if (err) throw err;
-      sql =        var sql = `     
-     SET NAMES utf8;
-     SET FOREIGN_KEY_CHECKS = 0;
-     DROP TABLE IF EXISTS \`smsLog\`;
-     CREATE TABLE \`smsLog\` (
-       \`accountSid\` varchar(32) DEFAULT NULL,
-       \`body\` varchar(1600) DEFAULT NULL,
-       \`dateCreated\` datetime DEFAULT NULL,
-       \`dateSent\` datetime DEFAULT NULL,
-       \`direction\` varchar(10) DEFAULT NULL,
-       \`errorCode\` smallint(6) DEFAULT NULL,
-       \`errorMessage\` varchar(500) DEFAULT NULL,
-       \`from\` varchar(15) DEFAULT NULL,
-       \`messageingServiceSid\` varchar(32) DEFAULT NULL,
-       \`numMedia\` tinyint(4) DEFAULT NULL,
-       \`numSegments\` tinyint(4) DEFAULT NULL,
-       \`price\` decimal(7,5) DEFAULT NULL,
-       \`sid\` varchar(32) DEFAULT NULL,
-       \`status\` varchar(15) DEFAULT NULL,
-       \`to\` varchar(15) DEFAULT NULL
-     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-     SET FOREIGN_KEY_CHECKS = 1;
-     `;
-      connection.query(sql, (err) => {
-        if (err) throw err;
-        sql = 'select * from smsLog';
         connection.query(sql, (err) => {
           if (err) throw err;
         });

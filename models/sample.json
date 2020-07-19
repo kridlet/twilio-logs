@@ -1,3 +1,5 @@
+CREATE TABLE IF NOT EXISTS smsLog (id bigint() NOT NULL AUTO_INCREMENT, SID varchar(40) DEFAULT NULL, dateImported datetime DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (id)) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;'
+
 {
     "accountSid": "AC284c90b505e788629902cb2f4d8a981a", // the unique account identifier. each Catalist client would have a unique accountSID
     "apiVersion": "2010-04-01", // irrelevant to Catalist
