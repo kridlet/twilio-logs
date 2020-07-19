@@ -1,20 +1,20 @@
-const Twilio = require('twilio')
-const fs = require('fs')
+import Twilio from 'twilio';
+import { appendFile } from 'fs';
 
-const client = new Twilio(accountSid, authToken)
+const client = new Twilio(accountSid, authToken);
 
 // testing setup
-const afterDate = '2020-07-16'
-const beforeDate = '2020-07-17'
-const messageLimit = 1000
-const fullLogFile = 'smsLog.json'
+const afterDate = '2020-07-16';
+const beforeDate = '2020-07-17';
+const messageLimit = 1000;
+const fullLogFile = 'smsLog.json';
 
 const logMessages = (messages) => {
   // add full message to the log file
-  fs.appendFile(fullLogFile, JSON.stringify(messages, null, 4), function (err) {
-    if (err) console.log(err)
-  })
-}
+  appendFile(fullLogFile, JSON.stringify(messages, null, 4), function (err) {
+    if (err) console.log(err);
+  });
+};
 
 const fetchMessages = () => {
   client.messages
@@ -24,7 +24,7 @@ const fetchMessages = () => {
         dateSentAfter: afterDate,
         dateSentBefore: beforeDate
       }, (messages) => {
-        logMessages(messages)
+        logMessages(messages);
       }
-    )
-}
+    );
+};
