@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const mysql = require('mysql');
 const keys = require('../keys.js');
@@ -13,33 +14,33 @@ const connection = mysql.createConnection({
 
 // connect to db
 // Connect to the database
-connection.connect(function (err) {
+connection.connect((err) => {
   if (err) {
-    console.error("error connecting: " + err.stack);
+    console.error(`error connecting: ${err.stack}`);
     return;
   }
-  connection.query("CREATE DATABASE IF NOT EXISTS twilio_logs", function (err, result) {
+  connection.query('CREATE DATABASE IF NOT EXISTS twilioLog', (err) => {
     if (err) {
-      console.error("error creating database: " + err.stack);
+      console.error(`error creating database: ${err.stack}`);
       return;
     }
-    var sql = "USE twilio_logs;";
-    connection.query(sql, function (err, result) {
+    let sql = 'USE twilioLog;';
+    connection.query(sql, (err) => {
+      if (err) throw err;
+      sql = 'CREATE TABLE IF NOT EXISTS smsLog (id int(11) NOT NULL AUTO_INCREMENT, SID varchar(40) DEFAULT NULL, dateImported datetime DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (id)) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;';
+      connection.query(sql, (err) => {
         if (err) throw err;
-        var sql = "CREATE TABLE IF NOT EXISTS smsLogs (id int(11) NOT NULL AUTO_INCREMENT, SID varchar(40) DEFAULT NULL, dateImported datetime DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (id)) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;";
-        connection.query(sql, function (err, result) {
+        sql = 'select * from smsLog';
+        connection.query(sql, (err) => {
           if (err) throw err;
-          var sql = "select * from smsLogs";
-          connection.query(sql, function (err, result) {
-            if (err) throw err;
-          });
-          console.log("smsLogs table created");
         });
-      console.log("using twilio_logs");
+        console.log('smsLog table created');
+      });
+      console.log('using twilioLog');
     });
-    console.log("twilio_logs database created");
+    console.log('twilioLog database created');
   });
-  console.log("connected to as id " + connection.threadId);
+  console.log(`connected as id ${connection.threadId}`);
 });
 
 // Export connection
